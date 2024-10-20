@@ -1,22 +1,38 @@
-import logo from "./logo.svg";
 import "./App.css";
-import Counter from "./Counter";
+import { useNavigate } from "react-router-dom";
+import AppRouting from "./AppRouting";
+import { useState } from "react";
 
 function App() {
+  const navigate = useNavigate();
+  const [sideView, setSideView] = useState(false);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React success. Finally success of code build
-        </a>
-      </header>
+      <div className="header">
+        <h1>Ganesh App</h1>
+        <button onClick={() => setSideView(!sideView)}>Toggle SideView</button>
+      </div>
+
+      <div className="d-flex">
+        <div className="sidebar flex-column">
+          <button onClick={() => navigate("/home")}>Home</button>
+          <button onClick={() => navigate("/counter")}>Counter</button>
+        </div>
+
+        <div className="mainContent">
+          <AppRouting />
+        </div>
+
+        {sideView && (
+          <div className="sideView">
+            SideView
+            <button onClick={() => setSideView(!sideView)}>
+              Close SideView
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
